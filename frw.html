@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="vvv.css">
+</head>
+<body>
+    <div class="container">
+        <h1>XYZ COMPANY</h1>
+        <h2>Currency Exchange Platform</h2>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount">
+        </div>
+        <div class="form-group">
+            <label for="from">From Currency</label>
+            <select id="from">
+                <option value="USD">USD ($)</option>
+                <option value="RWF">RWF (Rwanda Franc)</option>
+                <option value="EUR">EUR (€)</option>
+                
+                <!-- Add more currencies as needed -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="to">To Currency</label>
+            <select id="to">
+                <option value="RWF">RWF (Rwanda Franc)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+               
+                <!-- Add more currencies as needed -->
+            </select>
+        </div>
+        <button onclick="convertCurrency()">Convert</button>
+        <div class="result">
+            <h3>Converted Amount: <span id="result">0.00</span></h3>
+        </div>
+    </div>
+   
+    <script>
+        const exchangeRates = {
+    USD: { USD: 1, RWF: 1030, EUR: 0.85 },
+    RWF: { USD: 0.00097, RWF: 1, EUR: 0.00082 },
+    EUR: { USD: 1.18, RWF: 1215, EUR: 1 },
+   
+};
+
+function convertCurrency() {
+    console.log("Convert button clicked!");
+
+    // Get input values
+    const amount = parseFloat(document.getElementById('amount').value);
+    const fromCurrency = document.getElementById('from').value;
+    const toCurrency = document.getElementById('to').value;
+
+    console.log("Amount:", amount);
+    console.log("From Currency:", fromCurrency);
+    console.log("To Currency:", toCurrency);
+
+    // Check if the amount is valid
+    if (isNaN(amount)) {
+        console.log("Invalid amount entered");
+        document.getElementById('result').textContent = "Invalid amount";
+        return;
+    }
+
+    // Get the exchange rate
+    const rate = exchangeRates[fromCurrency][toCurrency];
+    console.log("Exchange Rate:", rate);
+
+    // Calculate the converted amount
+    const convertedAmount = (amount * rate).toFixed(2);
+    console.log("Converted Amount:", convertedAmount);
+
+    // Display the result
+    document.getElementById('result').textContent = `${convertedAmount} ${toCurrency}`;
+}
+    </script>
+</body>
+</html>
