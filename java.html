@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Currency Exchange</title>
+  <link rel="stylesheet" href="java.css">
+</head>
+<body>
+  <div class="container">
+ <h1>XYZ-COMPANY</h1>
+<h2>CURRENCY EXCHANGE PLATFORM</h2>
+    <div class="form">
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+          <input type="number" id="amount" value="100">
+      </div>
+      <div class="form-group">
+         <label for="from">From:</label>
+        <select id="from">
+         <option value="USD">USD - $</option>
+        <option value="EUR">EUR - €</option>
+          </select>
+      </div>
+      <div class="form-group">
+         <label for="to">To:</label>
+         <select id="to">
+            <option value="RWF">Rwanda - RWF</option>
+          <option value="UGX">Uganda - UGX</option>
+          <option value="KNX">kenyan-knx</option>
+        </select>
+      </div>
+      <button id="convert">Convert</button>
+      <div class="result">
+        <h3>Result</h3>
+        <p id="result">00</p>
+      </div>
+    </div>
+  </div>
+  <script src="script.js">
+  const amountInput = document.getElementById('amount');
+
+const fromSelect = document.getElementById('from');
+const toSelect = document.getElementById('to');
+const convertButton = document.getElementById('convert');
+const result = document.getElementById('result');
+
+convertButton.addEventListener('click', () => {
+    const amount = amountInput.value;
+    const from = fromSelect.value;
+    const to = toSelect.value;
+
+    // Replace this with your actual currency conversion logic
+    // You'll need to fetch real-time exchange rates from an API
+    fetch(`https://api.exchangerate-api.com/v4/latest/${from}`)
+        .then(response => response.json())
+        .then(data => {
+            const rate = data.rates[to];
+            const convertedAmount = amount * rate;
+            result.textContent = convertedAmount.toFixed(2); // Display with 2 decimal places
+        })
+        .catch(error => {
+            console.error('Error fetching exchange rates:', error);
+            result.textContent = 'Error';
+        });
+});
+  </script>
+</body>
+</html>
